@@ -167,7 +167,8 @@ public class BaseSyncState: SyncState {
     public init(scratchpad: Scratchpad, token: TokenServerToken) {
         let workQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
         let resultQueue = dispatch_get_main_queue()
-        let client = Sync15StorageClient(token: token, workQueue: workQueue, resultQueue: resultQueue)
+        let backoff = scratchpad.backoffStorage
+        let client = Sync15StorageClient(token: token, workQueue: workQueue, resultQueue: resultQueue, backoff: backoff)
         self.scratchpad = scratchpad
         self.token = token
         self.client = client
